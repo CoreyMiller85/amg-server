@@ -2,10 +2,15 @@ const CommunityModel = require('./models/community');
 const UnitModel = require('./models/unit');
 const WorkorderModel = require('./models/Workorder');
 const Sequelize = require('sequelize');
-const sequelize = new Sequelize('amg_database', 'amg', 'Welcome1!AMG', {
-  host: '67.205.149.179',
-  dialect: 'mysql',
-});
+const sequelize = new Sequelize(
+  process.env.DB_NAME,
+  process.env.DB_USER,
+  process.env.DB_PASS,
+  {
+    host: '67.205.149.179',
+    dialect: 'mysql',
+  }
+);
 
 sequelize
   .authenticate()
@@ -19,6 +24,7 @@ sequelize
 const Community = CommunityModel(sequelize, Sequelize);
 const Unit = UnitModel(sequelize, Sequelize);
 const Workorder = WorkorderModel(sequelize, Sequelize);
+
 Community.hasMany(Unit);
 Unit.belongsTo(Community);
 Unit.hasMany(Workorder);
@@ -31,4 +37,4 @@ sequelize
   })
   .catch((e) => console.log(e));
 
-module.exports = { Community, Unit };
+module.exports = { Community, Unit, Workorder };

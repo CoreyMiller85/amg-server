@@ -11,4 +11,13 @@ router.get('/', async (req, res) => {
   }
 });
 
+router.post('/create', async (req, res) => {
+  try {
+    const response = await Community.create(req.body);
+    res.json(response);
+  } catch (err) {
+    res.json(err);
+  }
+});
+
 module.exports = router;

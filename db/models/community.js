@@ -1,5 +1,5 @@
 module.exports = (sequelize, DataTypes) => {
-  return sequelize.define("Community", {
+  return sequelize.define('Community', {
     name: {
       type: DataTypes.STRING,
       unique: true,
@@ -7,12 +7,15 @@ module.exports = (sequelize, DataTypes) => {
     },
     city: {
       type: DataTypes.STRING,
+      require: true,
     },
     state: {
       type: DataTypes.STRING,
+      require: true,
     },
     zip: {
       type: DataTypes.INTEGER,
+      require: true,
     },
   });
 };
