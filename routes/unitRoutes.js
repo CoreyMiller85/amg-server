@@ -3,9 +3,19 @@ const router = express.Router();
 const { Unit, Community, Workorder } = require('../db/db');
 
 router.get('/', async (req, res) => {
+  const query = req.query.address;
   try {
-    const results = await Unit.findAll({ include: [Community, Workorder] });
-    res.json(results);
+    if (!query) {
+      const results = await Unit.findAll({ include: [Community, Workorder] });
+      res.json(results);
+    } else {
+      const results = await Unit.findAll({
+        where: {
+          address: { [Op.startsWith]: query },
+        },
+      });
+      res.json(results);
+    }
   } catch (err) {
     res.json(err);
   }
